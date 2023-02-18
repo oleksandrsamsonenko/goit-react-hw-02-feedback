@@ -4,6 +4,7 @@ import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
 import { SectionTitle } from './SectionTitle/SectionTitle';
 import { Notification } from './Notification/Notification';
+import PropTypes from 'prop-types';
 
 class Feedback extends Component {
   state = {
@@ -57,3 +58,8 @@ class Feedback extends Component {
 
 export default Feedback;
 
+Feedback.propTypes = {
+  good: PropTypes.number.isRequired,
+  neutral: PropTypes.number.isRequired,
+  bad: PropTypes.number.isRequired,
+};
