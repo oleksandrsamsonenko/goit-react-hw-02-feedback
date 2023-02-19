@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 
 class Feedback extends Component {
   state = {
-    good: this.props.good,
-    neutral: this.props.neutral,
-    bad: this.props.bad,
+    good: 0,
+    neutral: 0,
+    bad: 0,
   };
 
   handleFeedback = name => {

@@ -1,13 +1,13 @@
 import Feedback from './Feedback/Feedback';
 
-const state = {
-  good: 0,
-  neutral: 0,
-  bad: 0,
-};
+// const state = {
+//   good: 0,
+//   neutral: 0,
+//   bad: 0,
+// };
 
 export const App = () => {
-  const { good, neutral, bad } = state;
+  // const { good, neutral, bad } = state;
   return (
     <div
       style={{
@@ -17,7 +17,8 @@ export const App = () => {
         color: '#010101',
       }}
     >
-      <Feedback good={good} neutral={neutral} bad={bad} />
+      {/* <Feedback good={good} neutral={neutral} bad={bad} /> */}
+      <Feedback />
     </div>
   );
 };
