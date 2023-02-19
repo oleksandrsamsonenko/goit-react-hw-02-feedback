@@ -1,25 +1,19 @@
 import css from './Statistics.module.css';
 import PropTypes from 'prop-types';
 
-export const Statistics = ({ good, neutral, bad, total, rating }) => {
+export const Statistics = ({ stats, total, positivePercentage, rateLevel }) => {
   return (
     <div>
       <ul className={css.list}>
-        <li>
-          <p>
-            Good: <span className={css.count}>{good}</span>
-          </p>
-        </li>
-        <li>
-          <p>
-            Neutral: <span className={css.count}>{neutral}</span>
-          </p>
-        </li>
-        <li>
-          <p>
-            Bad: <span className={css.count}>{bad}</span>
-          </p>
-        </li>
+        {rateLevel.map(item => {
+          return (
+            <li key={item}>
+              <p>
+                {item}: <span className={css.count}>{stats[item]}</span>
+              </p>
+            </li>
+          );
+        })}
         <li>
           <p>
             Total:
@@ -28,7 +22,8 @@ export const Statistics = ({ good, neutral, bad, total, rating }) => {
         </li>
         <li>
           <p>
-            Positive feedback: <span className={css.count}>{rating}</span>
+            Positive feedback:
+            <span className={css.count}>{positivePercentage}</span>
           </p>
         </li>
       </ul>
@@ -37,9 +32,12 @@ export const Statistics = ({ good, neutral, bad, total, rating }) => {
 };
 
 Statistics.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
+  stats: PropTypes.shape({
+    good: PropTypes.number.isRequired,
+    neutral: PropTypes.number.isRequired,
+    bad: PropTypes.number.isRequired,
+  }),
   total: PropTypes.number.isRequired,
-  rating: PropTypes.string.isRequired,
+  positivePercentage: PropTypes.string.isRequired,
+  rateLevel: PropTypes.array.isRequired,
 };

@@ -4,7 +4,6 @@ import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
 import { Statistics } from './Statistics/Statistics';
 import { SectionTitle } from './SectionTitle/SectionTitle';
 import { Notification } from './Notification/Notification';
-import PropTypes from 'prop-types';
 
 class Feedback extends Component {
   state = {
@@ -18,8 +17,8 @@ class Feedback extends Component {
   };
 
   countTotalFeedback() {
-    const array = Object.values(this.state);
-    return array.reduce((total, item) => (total += item));
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
   }
 
   countPositiveFeedbackPercentage() {
@@ -31,23 +30,25 @@ class Feedback extends Component {
   }
   render() {
     const total = this.countTotalFeedback();
-    const rating = this.countPositiveFeedbackPercentage();
-    const { good, neutral, bad } = this.state;
+    const positivePercentage = this.countPositiveFeedbackPercentage();
+    const rateLevel = Object.keys(this.state);
     return (
       <div className={css.container}>
         <SectionTitle title="Please leave feedback">
-          <FeedbackOptions handleFeedback={this.handleFeedback} />
+          <FeedbackOptions
+            btnNames={rateLevel}
+            handleFeedback={this.handleFeedback}
+          />
         </SectionTitle>
         <SectionTitle title="Statistics">
           {this.countTotalFeedback() === 0 ? (
             <Notification message="There is no feedback" />
           ) : (
             <Statistics
-              good={good}
-              neutral={neutral}
-              bad={bad}
+              stats={this.state}
               total={total}
-              rating={rating}
+              positivePercentage={positivePercentage}
+              rateLevel={rateLevel}
             />
           )}
         </SectionTitle>
@@ -57,9 +58,3 @@ class Feedback extends Component {
 }
 
 export default Feedback;
-
-Feedback.propTypes = {
-  good: PropTypes.number.isRequired,
-  neutral: PropTypes.number.isRequired,
-  bad: PropTypes.number.isRequired,
-};
